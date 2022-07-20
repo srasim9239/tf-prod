@@ -1,16 +1,16 @@
-variable "yandex-token" {
+variable "yandex_token" {
   description = "YC OAuth token"
   default     = ""
 
 }
 
-variable "yandex-cloud-id" {
+variable "yandex_cloud_id" {
   description = "ID of a cloud"
 
   default     = ""
 }
 
-variable "yandex-folder-id" {
+variable "yandex_folder_id" {
   description = "ID of a folder"
 
 }
