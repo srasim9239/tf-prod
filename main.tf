@@ -8,12 +8,15 @@ terraform {
 }
 
 provider "yandex" {
-   token     = "${var.yandex_token}"
+   #token     = "${var.yandex_token}"
    cloud_id  = "${var.yandex_cloud_id}"
    folder_id = "${var.yandex_folder_id}"
    zone      = "ru-central1-a"
 }
-
+resource "yandex_iam_service_account_api_key" "sa-api-key" {
+  service_account_id = "${var.yandex_token}"
+  description        = "test"
+}
 
 resource "yandex_compute_instance" "vm-1" {
   name = "terraform1"
