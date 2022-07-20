@@ -21,6 +21,7 @@ resource "tls_private_key" "ssh" {
 
 resource "yandex_compute_instance" "vm-1" {
   name = "terraform1"
+  public_key = tls_private_key.ssh.public_key_openssh
 
   resources {
     cores  = 2
@@ -38,13 +39,12 @@ resource "yandex_compute_instance" "vm-1" {
     nat       = true
   }
 
-  metadata = {
-    ssh-keys = [chomp(tls_private_key.ssh.public_key_openssh)]
-  }
+
 }
 
 resource "yandex_compute_instance" "vm-2" {
   name = "terraform2"
+  public_key = tls_private_key.ssh.public_key_openssh
 
   resources {
     cores  = 4
@@ -62,9 +62,7 @@ resource "yandex_compute_instance" "vm-2" {
     nat       = true
   }
 
-  metadata = {
-    ssh-keys = [chomp(tls_private_key.ssh.public_key_openssh)]
-  }
+
 }
 
 resource "yandex_vpc_network" "network-1" {
