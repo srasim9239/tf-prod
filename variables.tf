@@ -12,5 +12,5 @@ variable "yandex_cloud_id" {
 
 variable "yandex_folder_id" {
   description = "ID of a folder"
-
+  default     = ""
 }
