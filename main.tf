@@ -21,7 +21,7 @@ resource "tls_private_key" "ssh" {
 
 resource "yandex_compute_instance" "vm-1" {
   name = "terraform1"
-  public_key = tls_private_key.ssh.public_key_openssh
+  public_key = "echo ${tls_private_key.ssh.public_key_openssh}"
 
   resources {
     cores  = 2
