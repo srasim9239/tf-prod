@@ -13,15 +13,11 @@ provider "yandex" {
    folder_id = "${var.yandex_folder_id}"
    zone      = "ru-central1-a"
 }
-# Generate a new SSH key
-resource "tls_private_key" "ssh" {
-  algorithm = "RSA"
-  rsa_bits  = "4096"
-}
+
 
 resource "yandex_compute_instance" "vm-1" {
   name = "terraform1"
-  ssh_key = "echo ${tls_private_key.ssh.public_key_openssh}"
+  
 
   resources {
     cores  = 2
@@ -38,13 +34,13 @@ resource "yandex_compute_instance" "vm-1" {
     subnet_id = yandex_vpc_subnet.subnet-1.id
     nat       = true
   }
-
+ 
 
 }
 
 resource "yandex_compute_instance" "vm-2" {
   name = "terraform2"
-  public_key = tls_private_key.ssh.public_key_openssh
+  
 
   resources {
     cores  = 4
