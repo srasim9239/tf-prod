@@ -2,12 +2,12 @@ terraform {
   required_providers {
     yandex = {
       source = "yandex-cloud/yandex"
+      version = "0.76.0"
     }
   }
-  required_version = ">= 0.13"
 }
 
-provider "yandex" {
+provider "yandex" { 
    #service_account_id = "${var.yandex_token}"
    token     = "${var.yandex_token}"
    cloud_id  = "${var.yandex_cloud_id}"
