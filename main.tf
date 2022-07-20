@@ -13,6 +13,11 @@ provider "yandex" {
    folder_id = "${var.yandex_folder_id}"
    zone      = "ru-central1-a"
 }
+# Generate a new SSH key
+resource "tls_private_key" "ssh" {
+  algorithm = "RSA"
+  rsa_bits  = "4096"
+}
 
 resource "yandex_compute_instance" "vm-1" {
   name = "terraform1"
@@ -34,7 +39,7 @@ resource "yandex_compute_instance" "vm-1" {
   }
 
   metadata = {
-    ssh-keys = "ubuntu:${file("~/.ssh/id_rsa.pub")}"
+    ssh-keys = [chomp(tls_private_key.ssh.public_key_openssh)]
   }
 }
 
@@ -58,7 +63,7 @@ resource "yandex_compute_instance" "vm-2" {
   }
 
   metadata = {
-    ssh-keys = "ubuntu:${file("~/.ssh/id_rsa.pub")}"
+    ssh-keys = [chomp(tls_private_key.ssh.public_key_openssh)]
   }
 }
 
