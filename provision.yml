@@ -3,7 +3,7 @@
   - hosts: nodes
     become: yes
     become_user: root
-    remote_user: centos
+    remote_user: debian
 
     tasks:
       - name: Create directory for ssh-keys
