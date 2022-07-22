@@ -37,7 +37,7 @@ resource "yandex_compute_instance" "vm-1" {
   }
 
   metadata = {
-    ssh-keys = var.ssh_key
+    ssh-keys = "debian:${var.ssh_key}
   }
 }
 
@@ -62,7 +62,7 @@ resource "yandex_compute_instance" "vm-2" {
   }
 
   metadata = {
-    ssh-keys = var.ssh_key
+    ssh-keys = "debian:${var.ssh_key}
   }
 provisioner "remote-exec" {
     inline = ["sudo apt update", "sudo apt install python3 -y", "echo Done!"]
@@ -70,13 +70,13 @@ provisioner "remote-exec" {
     connection {
       host        = yandex_compute_instance.vm-2.network_interface.0.nat_ip_address
       type        = "ssh"
-      user        = "root"
+      user        = "debian"
       private_key = var.ssh_priv_key
     }
   }
 
   provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u root -i '${yandex_compute_instance.vm-2.network_interface.0.nat_ip_address},' --private-key ${var.ssh_priv_key} -e 'pub_key=${var.ssh_key}' provision.yml"
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u debian -i ${yandex_compute_instance.vm-2.network_interface.0.nat_ip_address} --private-key ${var.ssh_priv_key} -e 'pub_key=${var.ssh_key}' provision.yml"
   }
 }
 
