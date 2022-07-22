@@ -76,7 +76,7 @@ provisioner "remote-exec" {
   }
 
   provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u debian -i ${yandex_compute_instance.vm-2.network_interface.0.nat_ip_address} --private-key ${var.ssh_priv_key} -e 'pub_key=${var.ssh_key}' provision.yml"
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u debian -i ${yandex_compute_instance.vm-2.network_interface.0.nat_ip_address} --private-key "${var.ssh_priv_key}" -e 'pub_key=${var.ssh_key}' provision.yml"
   }
 }
 
