@@ -71,7 +71,7 @@ provisioner "remote-exec" {
       host        = yandex_compute_instance.vm-2.network_interface.0.nat_ip_address
       type        = "ssh"
       user        = "root"
-      private_key = file(var.ssh_priv_key)
+      private_key = var.ssh_priv_key
     }
   }
 
