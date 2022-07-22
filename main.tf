@@ -37,7 +37,7 @@ resource "yandex_compute_instance" "vm-1" {
   }
 
   metadata = {
-    ssh-keys = "debian:${var.ssh_key}
+    ssh-keys = "debian:${var.ssh_key}"
   }
 }
 
@@ -62,7 +62,7 @@ resource "yandex_compute_instance" "vm-2" {
   }
 
   metadata = {
-    ssh-keys = "debian:${var.ssh_key}
+    ssh-keys = "debian:${var.ssh_key}"
   }
 provisioner "remote-exec" {
     inline = ["sudo apt update", "sudo apt install python3 -y", "echo Done!"]
